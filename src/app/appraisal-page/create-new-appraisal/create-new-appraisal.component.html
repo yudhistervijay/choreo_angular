@@ -1,0 +1,213 @@
+<div *ngIf="isLoading">
+  <app-progress-loader></app-progress-loader>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12"></div>
+    <div *ngIf="isLoading">
+      <app-progress-loader></app-progress-loader>
+    </div>
+    <mat-horizontal-stepper class="stepper" labelPosition="bottom" linear=true>
+      <mat-step [stepControl]="firstFormGroup" label="Vehicle Info">
+        <div class="container mt-3">
+          <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-7">
+              <form [formGroup]="firstFormGroup">
+                <div class="col-sm-2"></div>
+                <div class="form-fields-group col-sm-7">
+
+                  <mat-form-field floatLabel="auto" appearance="outline">
+                    <mat-label>First Name</mat-label>
+                    <input matInput type="text" formControlName="firstName">
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="auto" appearance="outline">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput type="text" formControlName="lastName">
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="auto" appearance="outline">
+                    <mat-label>Phone Number</mat-label>
+                    <input matInput type="text" formControlName="phoneNumber" (input)="onInputChange($event)">
+                    <mat-hint>Enter 10 digits phone number</mat-hint>
+                  </mat-form-field>
+                  
+                  <mat-form-field floatLabel="auto" appearance="outline">
+                    <mat-label>Enter Vin number</mat-label>
+                    <input matInput type="tel" #vin formControlName="vin" (blur)="isEdit ? null : getVehicleData()">
+                    <div *ngIf=vinLoading>
+                      <app-progress-loader></app-progress-loader>
+                    </div>
+                    <mat-hint>Enter 17 digits Vin number</mat-hint>
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="auto" appearance="outline">
+                    <mat-label>Vehicle Year</mat-label>
+                    <input matInput type="number" formControlName="vehicleYear">
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="auto" appearance="outline">
+                    <mat-label>Vehicle make</mat-label>
+                    <input matInput type="text" formControlName="vehicleMake">
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="auto" appearance="outline">
+                    <mat-label>Vehicle Model</mat-label>
+                    <input matInput type="text" formControlName="vehicleModel">
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="auto" appearance="outline">
+                    <mat-label>Vehicle Series</mat-label>
+                    <input matInput type="text" formControlName="vehicleSeries">
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="auto" appearance="outline">
+                    <mat-label>Vehicle Miles</mat-label>
+                    <input matInput type="number" formControlName="vehicleMiles">
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="auto" appearance="outline">
+                    <mat-label>Engine Type</mat-label>
+                    <input matInput type="text" formControlName="engineType">
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="auto" appearance="outline">
+                    <mat-label>Transmission Type</mat-label>
+                    <input matInput type="text" formControlName="transmissionType">
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="auto" appearance="outline">
+                    <mat-label>Select Vehicle Exterior Color</mat-label>
+                    <mat-select formControlName="selectedVehicleExteriorColor">
+                      <mat-option *ngFor="let color of vehicleExteriorColor" [value]="color.config_id">
+                        {{color.longCode | titlecase}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel="auto" appearance="outline">
+                    <mat-label>Select Vehicle Interior Color</mat-label>
+                    <mat-select formControlName="selectedVehicleInteriorColor">
+                      <mat-option *ngFor="let color of vehicleInteriorColor" [value]="color.config_id">
+                        {{color.longCode | titlecase}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-3 d-flex justify-content-center ">
+                  <button mat-button *ngIf="!isEdit||(isEdit && isDraft==='Draft')" (click)="saveToDraft()"
+                    [disabled]="!firstFormGroup.valid">Draft</button>
+                  <button mat-button matStepperNext>Next</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- {{firstFormGroup.value | json}} -->
+      </mat-step>
+      <mat-step [stepControl]="thirdFormGroup" label="Vehicle Images">
+        <div class="container mt-3">
+          <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-7">
+              <form [formGroup]="thirdFormGroup">
+                <div class="col-sm-2 d-flex justify-content-center ">
+                  <button mat-button matStepperPrevious>Back</button>
+                </div>
+                <div class="form-fields-group col-sm-7">
+
+                  <div class="file-upload-container">
+                    <label for="vehiclePic1" class="file-upload-label">Choose an image for Picture1</label>
+                    <input type="file" #fileInput1 accept="image/*" id="vehiclePic1"
+                      (change)="onFileSelected(fileInput1.id, $event)" />
+                    <button mat-fab extended (click)="uploadImage1()"
+                      class="upload-button"><mat-icon>upload</mat-icon></button>
+                    &nbsp;&nbsp;
+                    <button mat-stroked-button (click)="openImage(thirdFormGroup.value.vehiclePic1) " color="primary"
+                      [disabled]="thirdFormGroup.value.vehiclePic1===null">Preview</button>
+                  
+                  </div>
+
+                  <div class="file-upload-container">
+                    <label for="vehiclePic2" class="file-upload-label">Choose an Image for Picture2</label>
+                    <input type="file" #fileInput2 accept="image/*" id="vehiclePic2"
+                      (change)="onFileSelected(fileInput2.id,$event)" />
+                    <button mat-fab extended (click)="uploadImage1()"
+                      class="upload-button"><mat-icon>upload</mat-icon></button>
+                    &nbsp;&nbsp;
+                    <button mat-stroked-button (click)="openImage(thirdFormGroup.value.vehiclePic2) " color="primary"
+                      [disabled]="thirdFormGroup.value.vehiclePic2===null">preview</button>
+
+                   
+                  </div>
+
+                  <div class="file-upload-container">
+                    <label for="vehiclePic3" class="file-upload-label">Choose an Image for Picture3</label>
+                    <input type="file" #fileInput3 accept="image/*" id="vehiclePic3"
+                      (change)="onFileSelected(fileInput3.id,$event)" />
+                    <button mat-fab extended (click)="uploadImage1()"
+                      class="upload-button"><mat-icon>upload</mat-icon></button>
+                    &nbsp;&nbsp;
+                    <button mat-stroked-button (click)="openImage(thirdFormGroup.value.vehiclePic3) " color="primary"
+                      [disabled]="thirdFormGroup.value.vehiclePic3===null">Preview</button>
+                    <!-- <div *ngIf="thirdFormGroup.value.vehiclePic3!==null; then thenBlock else elseBlock"></div>
+                    <ng-template #thenBlock><button mat-stroked-button
+                        (click)="openImage(thirdFormGroup.get('vehiclePic3')?.value)"
+                        color="primary">preview</button></ng-template>
+                    <ng-template #elseBlock><button mat-stroked-button color="primary" style="cursor: not-allowed;">No
+                        preview</button></ng-template> -->
+                  </div>
+
+                  <div class="file-upload-container">
+                    <label for="vehiclePic4" class="file-upload-label">Choose an Image for Picture4</label>
+                    <input type="file" #fileInput4 accept="image/*" id="vehiclePic4"
+                      (change)="onFileSelected(fileInput4.id,$event)" />
+                    <button mat-fab extended (click)="uploadImage1()"
+                      class="upload-button"><mat-icon>upload</mat-icon></button>
+                    &nbsp;&nbsp;
+                    <button mat-stroked-button (click)="openImage(thirdFormGroup.value.vehiclePic4) " color="primary"
+                      [disabled]="thirdFormGroup.value.vehiclePic4===null">Preview</button>
+                  
+                  </div>
+                </div>
+                <div class="col-sm-3 d-flex justify-content-center ">
+                  <button mat-button *ngIf="!isEdit||(isEdit && isDraft==='Draft')" (click)="saveToDraft()"
+                    [disabled]="!thirdFormGroup.get('vehiclePic1')?.value">Draft</button>
+                  <button mat-button matStepperNext>Next</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </mat-step>
+      <mat-step [stepControl]="wholeSaleFormGroup" label="Wholesale">
+        <div class="container mt-3">
+          <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-7">
+              <form [formGroup]="wholeSaleFormGroup">
+                <div class="col-sm-2 d-flex justify-content-center ">
+                  <button mat-button matStepperPrevious>Back</button>
+                </div>
+                <div class="form-fields-group col-sm-8">
+                  <mat-form-field floatLabel="auto" appearance="outline">
+                    <mat-label>Appraised Value</mat-label>
+                    <span matPrefix>&nbsp; &#36; &nbsp;</span>
+                    <input matInput type="number" formControlName="appraisedValue">
+                  </mat-form-field>
+                  <br>
+                  <button mat-button *ngIf="isEdit" (click)="updateAppraisalData()">update</button>
+                  <button mat-button *ngIf="!isEdit" (click)="submitAppraisalData()">submit</button>
+                </div>
+                <div class="col-sm-2 dflex justify-content-center">
+                  <button mat-button *ngIf="!isEdit||(isEdit && isDraft==='Draft')" (click)="saveToDraft()"
+                    [disabled]="!wholeSaleFormGroup.valid">Draft</button>
+                </div>
+              </form>
+              <!-- {{wholeSaleFormGroup.value | json}} -->
+            </div>
+           
+          </div>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+</div>
