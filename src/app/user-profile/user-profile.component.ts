@@ -37,17 +37,7 @@ public newPass:string='';
     userFirstName:[{ value: '', disabled: true }],
     userLastName:[{ value: '', disabled: true }],
     mobileNumber:['',[Validators.required]],
-    email:[{ value: '', disabled: true }],
-    // password:[''],
-    // dlrshpName:[''],
-    // state:['',[Validators.required]],
-    // city:['',[Validators.required]],
-    // suiteNumber:[''],
-    // zipCode:['',[Validators.required,Validators.max(99999)]],
-    // factorySalesmen:[{value: '', disabled: true}],
-    // factoryManager:[{value: '', disabled: true}],
-    // corporateDealer:[{value: '', disabled: true}],
-    
+    email:[{ value: '', disabled: true }], 
 
   })
 
@@ -74,16 +64,6 @@ public newPass:string='';
         mobileNumber:this.showUserCard.phone,
         email:this.showUserCard.email,
 
-        // dlrshpName:this.showUserCard.dlrshpName,
-        // state:this.showUserCard.state,
-        // city:this.showUserCard.city,
-        // suiteNumber:this.showUserCard.apartmentNumber,
-        // zipCode:this.showUserCard.zipCode,
-        // factorySalesmen:this.showUserCard.factorySalesman,
-        // factoryManager:this.showUserCard.factoryManager,
-        // corporateDealer:this.showUserCard.dealerAdmin
-
-
        })
 
         
@@ -99,19 +79,7 @@ public newPass:string='';
 
 
   }
-  // changePass() {
 
-  //   const dialogRef = this.dialog.open(ChangePasswordComponent,{ height:'300px',width:'400px'});
-
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     this.newPass = result; 
-  //     this.formOfUser.patchValue({ 
-  //        password:this.newPass 
-  //     })  
-  //   });
-
-  // }
 
 
   
@@ -149,14 +117,6 @@ public newPass:string='';
       phone: this.formOfUser.get('mobileNumber')?.value,
       email: this.formOfUser.get('email')?.value,
       password: this.formOfUser.get('Password')?.value,
-      // roleOfUser: this.showUserCard.roleOfUser,
-      // dealershipNames: this.formOfUser.get('dlrshpName')?.value,
-      // state: this.formOfUser.get('state')?.value,
-      // city: this.formOfUser.get('city')?.value,
-      // streetAddress: this.showUserCard.streetAddress,
-      // apartmentNumber: this.formOfUser.get('suiteNumber')?.value,
-      // zipCode: this.formOfUser.get('zipCode')?.value,
-      // dealerAdmin:this.showUserCard.dealerAdmin,
       profilePicture: this.showUserCard.profilePicture
 
     }
