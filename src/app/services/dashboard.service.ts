@@ -28,13 +28,11 @@ export class DashboardService {
 
     showUser(userId?:any){
       const showurl= `${urls.checkUser}?id=${userId}`;
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'API-Key':"eyJraWQiOiJnYXRld2F5X2NlcnRpZmljYXRlX2FsaWFzIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI5MmU5MTFiOC0wZjlmLTQwNTQtYWYyMy0xZGZlMTlmNTM5OTZAY2FyYm9uLnN1cGVyIiwiYXVkIjoiY2hvcmVvOmRlcGxveW1lbnQ6c2FuZGJveCIsImlzcyI6Imh0dHBzOlwvXC9zdHMuY2hvcmVvLmRldjo0NDNcL2FwaVwvYW1cL3B1Ymxpc2hlclwvdjJcL2FwaXNcL2ludGVybmFsLWtleSIsImtleXR5cGUiOiJTQU5EQk9YIiwic3Vic2NyaWJlZEFQSXMiOlt7InN1YnNjcmliZXJUZW5hbnREb21haW4iOm51bGwsIm5hbWUiOiJiYWxsZXJpbmEgLSBVc2VyIiwiY29udGV4dCI6IlwvZDdlYWYwN2MtZmIwNS00ODUxLTg4ZGEtMmU1ZGZkMGNkNzMwXC9iYWxsZXJpbmFcL2JhbGxlcmluYVwvdXNlci0yN2NcL3YxLjAiLCJwdWJsaXNoZXIiOiJjaG9yZW9fcHJvZF9hcGltX2FkbWluIiwidmVyc2lvbiI6InYxLjAiLCJzdWJzY3JpcHRpb25UaWVyIjpudWxsfV0sImV4cCI6MTcxMzQzODI5OCwidG9rZW5fdHlwZSI6IkludGVybmFsS2V5IiwiaWF0IjoxNzEzNDM3Njk4LCJqdGkiOiI1OTYzZWZlOS1hZTA5LTQ4MjYtOTUyZC01YzY0MjZiYTMzNzMifQ.oJvQqRwDFvh1fMQemx-4PiVAl0cT1ZZYv8zhxFT34f3bGGVroPLbc1F2CAlLyn17cIjXVL5So1baZg_7nOmRbQtyZFM5CFbd8kPdKI3LbmRNNQRKPCnlyzZcOtpp5X-Cbc4pawRK8e8b0ri5ee2eEvFVK8FpZppwCnu_KabvtGMcMJSBMFXFFPFrF2bcp3GIqUVLXzmA2p6yOg4hsyYYnC35Yx1GYizFzDkrDn06dZT2wQ1HGT-ncOsrph48Z5LINtnooUARCi7sHD9AX-Bq2QpOEprmHPwTuaS4Ga6HfXq1oC513D72YdlumM-CrADJltfgnuw-yENEE42i9CaXi8vcyYKFrwPcBKXjxnO0uKYhrTqS4bio-DMBzw3DNC2ebz2zi5J5WeGoziy-ZEbZQ8ecci9-bfXoyU-gY0mzywMB7NKtgatBtRtXDH4uBR2vUejJ667QYEl40jiGPwmN9DFU5Tb-CPD7YrZL5VdjLrmc4Nt_JUEAE05V-5PB8ki6flXnZLTUiaABc22vr1KJ_9KGpEKS1AKLFAi_SJroupRoQ4sWJT0L7gaUTnwWGkw8yotLHS1PbQXOpiVgZHMxchXYbY3bwPY--mRsuKL39yFvNLGf69tNj8SmWW4djjJTpQDfRiEp7NGqlvSCeQz2YdJqTkIzsWvO8TLQrafZOpU"
-        
-      });
-      const options = {headers:headers};
-      return this.http.get(showurl,options);
+      // const headers = new HttpHeaders({
+      //   'Content-Type': 'application/json',         
+      // });
+      // const options = {headers:headers};
+      return this.http.get(showurl);
     }
 
 
@@ -53,11 +51,11 @@ export class DashboardService {
      // const showurl= `http://localhost:8080/user/fetchUser?id=${userId}`;
       const showurl=`${urls.checkUser}?id=${userId}`;
 
-      // const headers = new HttpHeaders({
-      //   'Content-Type': 'application/json',
-      //   'userId':this.userId
-      // });
-      // const options = {headers:headers};
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        // 'API-Key':urls.userKey
+      });
+      const options = {headers:headers};
       return this.http.get(showurl);
     }
 

@@ -88,8 +88,11 @@ printAppraisalReport:contextPaths.shipment+"/apprReportPdf",
     payment:contextPaths.shipment+"/payment",
     //Identity server
     getUserId:"/keyassure/user/getUserId",
-   
- 
+
+    // // apikeys
+    // dropDownsKey:"",
+    // userKey:"",
+    // apprKey:"",          
  
 }
 export default urls;
