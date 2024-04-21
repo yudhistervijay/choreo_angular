@@ -199,17 +199,11 @@ function initializeAppFactory(httpClient: UserService, oauthService: OAuthServic
     SoldRetail,
     HoldUnit,
     Wholesale,
-
-
     MakeOfferSelect,
-
     FavoriteVehicleComponent,
     UserProfileComponent,
     ChangePasswordComponent,
-
-
     ProgressLoaderComponent,
-
     CustomMonthPickerDirective,
     CustomPickerFormatsDirectiveDirective,
 
